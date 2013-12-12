@@ -1,2 +1,4 @@
 host: 127.0.0.1
-port: 9500
+thrift_port: 9500
+http_port: 9200
+index: elastic_search_thrift

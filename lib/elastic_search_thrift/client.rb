@@ -4,6 +4,7 @@ require 'elastic_search_thrift/mini_thrift'
 require 'elastic_search_thrift/elasticsearch_constants'
 require 'elastic_search_thrift/elasticsearch_types'
 require 'elastic_search_thrift/rest'
+require 'elastic_search_thrift/thrift_extensions'
 
 module ElasticSearchThrift
   class Client
@@ -45,18 +46,17 @@ module ElasticSearchThrift
       request = RestRequest.new
       request.method = method
       request.uri = uri
-      request.parameters = parameters
+      request.parameters = normalize_hash(parameters)
       request.headers = {}
       request.body = body.to_json
-      response = @client.execute(request)
-      JSON.parse(response.body)
+      @client.execute(request)
     end
 
     def open
       @transport.open unless open?
       if block_given?
         begin
-          yield
+          yield self
         ensure
           close
         end
@@ -70,5 +70,17 @@ module ElasticSearchThrift
     def close
       @transport.close if open?
     end
+
+    def normalize_hash(hash)
+      return hash if hash.empty?
+
+      result = {}
+      hash.each do |key, value|
+        result[key.to_s] = value.to_s
+      end
+      result
+    end
   end
+
+  Response = Struct.new(:status, :headers, :body)
 end
