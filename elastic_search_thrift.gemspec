@@ -16,6 +16,6 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
 
   gem.add_dependency 'thrift', '~> 0.9.1'
-  gem.add_dependency 'json', '~> 1.8.0'
+  gem.add_dependency 'json', '>= 1.6.0', '< 1.9.0'
   gem.add_development_dependency 'bundler'
 end
