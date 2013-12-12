@@ -18,4 +18,6 @@ module ElasticSearchThrift
       TireClient.install
     end
   end
+
+  configure host: '127.0.0.1', port: 9500
 end
