@@ -13,7 +13,7 @@ You will of course also need the
 
 ## Usage
 
-    require 'elasticsearch_thrift'
+    require 'elastic_search_thrift'
 
     # This is the default configuration.
     ElasticSearchThrift.configure(host: '127.0.0.1', port: 9500)
