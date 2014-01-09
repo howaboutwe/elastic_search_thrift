@@ -1,3 +1,7 @@
+== LATEST
+
+ * Tire connections are lazily opened.
+
 == 0.0.1 2013-12-11
 
  * Hi.
