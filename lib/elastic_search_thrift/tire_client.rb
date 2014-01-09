@@ -10,7 +10,7 @@ module ElasticSearchThrift
 
     def initialize
       @client = ElasticSearchThrift.client
-      @client.open
+      @opened = false
     end
 
     attr_reader :client
@@ -38,6 +38,7 @@ module ElasticSearchThrift
     private
 
     def execute(method, url, data)
+      @client.open if !@opened
       path, params = parse_url(url)
       path.chomp!('/')
       response = client.send(method, path, params, normalize_data(data))
